@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          // Variables
+          const baseDeDatos = [
+              {
+                  id: 1,
+                  nombre: 'Deportiva Doderna 175',
+                  precio: 1,
+                  imagen: 'motoneta.jpg'
+              },
+              {
+                  id: 2,
+                  nombre: 'Vitalia 150',
+                  precio: 1.2,
+                  imagen: 'motoneta1.jpg'
+              },
+              {
+                  id: 3,
+                  nombre: 'Ws150Sport',
+                  precio: 2.1,
+                  imagen: 'motoneta2.jpg'
+              },
+              {
+                  id: 4,
+                  nombre: 'Biwis 125',
+                  precio: 0.6,
+                  imagen: 'motoneta3.jpg'
+              },
+              {
+                  id: 5,
+                  nombre: 'Ws160Sport',
+                  precio: 0.6,
+                  imagen: 'motoneta4.jpg'
+              },
+              {
+                  id: 6,
+                  nombre: 'Ds150',
+                  precio: 0.6,
+                  imagen: 'motoneta5.jpg'
+              },
+              {
+                  id: 7,
+                  nombre: '125z',
+                  precio: 0.6,
+                  imagen: '125z.jpg'
+              },
+              {
+                  id: 8,
+                  nombre: 'Ft250 TS',
+                  precio: 0.6,
+                  imagen: 'Ft250ts.jpg'
+              }, {
+                  id: 9,
+                  nombre: '150z',
+                  precio: 0.6,
+                  imagen: '150z.jpg'
+              }, {
+                  id: 10,
+                  nombre: 'Ft125 TS',
+                  precio: 0.6,
+                  imagen: 'motoazul10.jpg'
+              }, {
+                  id: 11,
+                  nombre: 'Ft150ts',
+                  precio: 0.6,
+                  imagen: 'ft150ts.jpg'
+              }, {
+                  id: 12,
+                  nombre: 'Ft125',
+                  precio: 0.6,
+                  imagen: 'FT125.jpg'
+              }, {
+                  id: 13,
+                  nombre: 'Yamaha-R7',
+                  precio: 0.6,
+                  imagen: 'moto blanca suzuki.jpg'
+              }, {
+                  id: 14,
+                  nombre: 'FSuzuki GSX 150',
+                  precio: 0.6,
+                  imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1u73CaA6z6rsCTJkFEhQqw5HpkyahB2lgA&usqp=CAU'
+              }, {
+                  id: 15,
+                  nombre: 'Yamaha-R1',
+                  precio: 0.6,
+                  imagen: 'moto azul r3.jpg'
+              }, {
+                  id: 16,
+                  nombre: 'FYamaha-R3',
+                  precio: 0.6,
+                  imagen: 'yamaha r15.jpg'
+              }, {
+                  id: 17,
+                  nombre: 'Yamaha-R7',
+                  precio: 0.6,
+                  imagen: 'motonegra k.jpg'
+              }, {
+                  id: 18,
+                  nombre: 'Yamaha-R2',
+                  precio: 0.6,
+                  imagen: 'https://suzuki-motos.s3.amazonaws.com/assets/prod-publish/10910/negro.png'
+              }, {
+                  id: 19,
+                  nombre: 'Cuatrimoto ATV 250',
+                  precio: 0.6,
+                  imagen: 'cuatrimoto.jpg.jpg'
+              }, {
+                  id: 20,
+                  nombre: 'Cuatrimoto ATV 150',
+                  precio: 0.6,
+                  imagen: 'cuatrimotonegra.jp.jpeg'
+              }, {
+                  id: 21,
+                  nombre: 'CFORCE 1000',
+                  precio: 0.6,
+                  imagen: 'cuatrimotonegragrande.jpg'
+              }, {
+                  id: 22,
+                  nombre: 'Reptile trek 200',
+                  precio: 0.6,
+                  imagen: 'cuatrimotoroja.jpg'
+              }, {
+                  id: 23,
+                  nombre: 'Gladiator 200',
+                  precio: 0.6,
+                  imagen: 'cuatrimotorroja1.jpg'
+              }, {
+                  id: 24,
+                  nombre: 'KingQuad 750',
+                  precio: 0.6,
+                  imagen: 'CUATRIMOTOCAMUFLAJE.jpg'
+              },
+             
+          ];
+
+          let carrito = [];
+          const divisa = '$';
+          const DOMitems = document.querySelector('#items');
+          const DOMcarrito = document.querySelector('#carrito');
+          const DOMtotal = document.querySelector('#total');
+          const DOMbotonVaciar = document.querySelector('#boton-vaciar');
+
+          // Funciones
+
+          /**
+          * Dibuja todos los productos a partir de la base de datos. No confundir con el carrito
+          */
+          function renderizarProductos() {
+              baseDeDatos.forEach((info) => {
+                  // Estructura
+                  const miNodo = document.createElement('div');
+                  miNodo.classList.add('card', 'col-sm-4');
+                  // Body
+                  const miNodoCardBody = document.createElement('div');
+                  miNodoCardBody.classList.add('card-body');
+                  // Titulo
+                  const miNodoTitle = document.createElement('h5');
+                  miNodoTitle.classList.add('card-title');
+                  miNodoTitle.textContent = info.nombre;
+                  // Imagen
+                  const miNodoImagen = document.createElement('img');
+                  miNodoImagen.classList.add('img-fluid');
+                  miNodoImagen.setAttribute('src', info.imagen);
+                  // Precio
+                  const miNodoPrecio = document.createElement('p');
+                  miNodoPrecio.classList.add('card-text');
+                  miNodoPrecio.textContent = `${info.precio}${divisa}`;
+                  // Boton
+                  const miNodoBoton = document.createElement('button');
+                  miNodoBoton.classList.add('btn', 'btn-primary');
+                  miNodoBoton.textContent = '+';
+                  miNodoBoton.setAttribute('marcador', info.id);
+                  miNodoBoton.addEventListener('click', anyadirProductoAlCarrito);
+                  // Insertamos
+                  miNodoCardBody.appendChild(miNodoImagen);
+                  miNodoCardBody.appendChild(miNodoTitle);
+                  miNodoCardBody.appendChild(miNodoPrecio);
+                  miNodoCardBody.appendChild(miNodoBoton);
+                  miNodo.appendChild(miNodoCardBody);
+                  DOMitems.appendChild(miNodo);
+              });
+          }
+
+          /**
+          * Evento para añadir un producto al carrito de la compra
+          */
+          function anyadirProductoAlCarrito(evento) {
+              // Anyadimos el Nodo a nuestro carrito
+              carrito.push(evento.target.getAttribute('marcador'))
+              // Actualizamos el carrito
+              renderizarCarrito();
+
+          }
+
+          /**
+          * Dibuja todos los productos guardados en el carrito
+          */
+          function renderizarCarrito() {
+              // Vaciamos todo el html
+              DOMcarrito.textContent = '';
+              // Quitamos los duplicados
+              const carritoSinDuplicados = [...new Set(carrito)];
+              // Generamos los Nodos a partir de carrito
+              carritoSinDuplicados.forEach((item) => {
+                  // Obtenemos el item que necesitamos de la variable base de datos
+                  const miItem = baseDeDatos.filter((itemBaseDatos) => {
+                      // ¿Coincide las id? Solo puede existir un caso
+                      return itemBaseDatos.id === parseInt(item);
+                  });
+                  // Cuenta el número de veces que se repite el producto
+                  const numeroUnidadesItem = carrito.reduce((total, itemId) => {
+                      // ¿Coincide las id? Incremento el contador, en caso contrario no mantengo
+                      return itemId === item ? total += 1 : total;
+                  }, 0);
+                  // Creamos el nodo del item del carrito
+                  const miNodo = document.createElement('li');
+                  miNodo.classList.add('list-group-item', 'text-right', 'mx-2');
+                  miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre} - ${miItem[0].precio}${divisa}`;
+                  // Boton de borrar
+                  const miBoton = document.createElement('button');
+                  miBoton.classList.add('btn', 'btn-danger', 'mx-5');
+                  miBoton.textContent = 'X';
+                  miBoton.style.marginLeft = '1rem';
+                  miBoton.dataset.item = item;
+                  miBoton.addEventListener('click', borrarItemCarrito);
+                  // Mezclamos nodos
+                  miNodo.appendChild(miBoton);
+                  DOMcarrito.appendChild(miNodo);
+              });
+             // Renderizamos el precio total en el HTML
+             DOMtotal.textContent = calcularTotal();
+          }
+
+          /**
+          * Evento para borrar un elemento del carrito
+          */
+          function borrarItemCarrito(evento) {
+              // Obtenemos el producto ID que hay en el boton pulsado
+              const id = evento.target.dataset.item;
+              // Borramos todos los productos
+              carrito = carrito.filter((carritoId) => {
+                  return carritoId !== id;
+              });
+              // volvemos a renderizar
+              renderizarCarrito();
+          }
+
+          /**
+           * Calcula el precio total teniendo en cuenta los productos repetidos
+           */
+          function calcularTotal() {
+              // Recorremos el array del carrito
+              return carrito.reduce((total, item) => {
+                  // De cada elemento obtenemos su precio
+                  const miItem = baseDeDatos.filter((itemBaseDatos) => {
+                      return itemBaseDatos.id === parseInt(item);
+                  });
+                  // Los sumamos al total
+                  return total + miItem[0].precio;
+              }, 0).toFixed(2);
+          }
+
+          /**
+          * Varia el carrito y vuelve a dibujarlo
+          */
+          function vaciarCarrito() {
+              // Limpiamos los productos guardados
+              carrito = [];
+              // Renderizamos los cambios
+              renderizarCarrito();
+          }
+
+          // Eventos
+          DOMbotonVaciar.addEventListener('click', vaciarCarrito);
+
+          // Inicio
+          renderizarProductos();
+          renderizarCarrito();
+        });
+    </script>
+</head>
+<body>
+
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="file:///C:/Users/User/Desktop/proyecto%20final/.html">
+            <img src="logo.jpg" alt="Logo" width="50" height="40" class="d-inline-block align-text-top">
+            MOTO WORLD
+            <a class="navbar-brand" href="file:///C:/Users/User/Desktop/proyecto%20final/prueba.html">
+              <img src="carrito de compras,jpg.jpg" alt="Logo" width="50" height="40" class="d-inline-block align-text-top">
+          </a>
+        </div>
+      </nav>
+    
+      
+    
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="file:///C:/Users/User/Desktop/proyecto%20final/.html">INICIO</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="file:///C:/Users/User/Desktop/proyecto%20final/REGISTRATE.html">REGISTRATE</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  TIPOS
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="file:///C:/Users/User/Desktop/proyecto%20final/trabajo.html">Motoneta</a></li>
+                  <li><a class="dropdown-item" href="file:///C:/Users/User/Desktop/proyecto%20final/motonetas.html">Trabajo</a></li>
+                  <li><a class="dropdown-item" href="file:///C:/Users/User/Desktop/proyecto%20final/deportivas.html">Deportiva</a></li>
+                  <li><a class="dropdown-item" href="file:///C:/Users/User/Desktop/proyecto%20final/cuatrimotos.html">Cuatrimoto</a></li>
+                </ul>
+              </li>
+            </ul>
+    
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">BUSCAR</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container">
+        <div class="row">
+            <!-- Elementos generados a partir del JSON -->
+            <main id="items" class="col-sm-8 row"></main>
+            <!-- Carrito -->
+            <aside class="col-sm-4">
+                <h2>Carrito</h2>
+                <!-- Elementos del carrito -->
+                <ul id="carrito" class="list-group"></ul>
+                <hr>
+                <!-- Precio total -->
+                <p class="text-right">Total: <span id="total"></span>&euro;</p>
+                <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

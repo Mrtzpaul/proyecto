@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 16px;
+        }
+
+        #cart {
+            border: 1px solid #000;
+            padding: 16px;
+            margin: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tienda</h1>
+    <div class="product">
+        <h2>Producto 1</h2>
+        <p>Precio: $10</p>
+        <button onclick="addToCart('Producto 1', 10)">Agregar al Carrito</button>
+    </div>
+    <div class="product">
+        <h2>Producto 2</h2>
+        <p>Precio: $15</p>
+        <button onclick="addToCart('Producto 2', 15)">Agregar al Carrito</button>
+    </div>
+
+    <h2>Carrito de Compras</h2>
+    <div id="cart">
+        <p>El carrito está vacío</p>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(productName, productPrice) {
+            cart.push({ name: productName, price: productPrice });
+            displayCart();
+        }
+
+        function displayCart() {
+            const cartDiv = document.getElementById('cart');
+            if (cart.length === 0) {
+                cartDiv.innerHTML = '<p>El carrito está vacío</p>';
+            } else {
+                let cartContent = '<ul>';
+                let total = 0;
+                cart.forEach((item, index) => {
+                    cartContent += `<li>${item.name} - $${item.price} <button onclick="removeFromCart(${index})">Eliminar</button></li>`;
+                    total += item.price;
+                });
+                cartContent += `</ul><p>Total: $${total}</p>`;
+                cartDiv.innerHTML = cartContent;
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            displayCart();
+        }
+    </script>
+</body>
+</html>
